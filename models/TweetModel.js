@@ -9,13 +9,12 @@ const Schema = mongoose.Schema
 
 const tweetSchema = new Schema({
 	tweet: String,
-	author: String,
-	createdAt: Date
+	author: String
 })
 
 const TweetModel = mongoose.model("Tweet", tweetSchema)
 
-export default {
+module.exports = {
 	getTweets: () => TweetModel.find().sort({ _id: -1 }),
 	getTweet: _id => TweetModel.findOne({ _id }),
 	createTweet: args => TweetModel(args).save(),
@@ -47,7 +46,6 @@ export default {
 		)
 
 		args.author = "user123" // temporary user
-		args.createdAt = new Date()
 
 		return args
 	}

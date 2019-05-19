@@ -1,19 +1,19 @@
-import { GraphQLScalarType } from "graphql"
+const TweetModel = require("../models/TweetModel")
 
-import TweetModel from "../models/TweetModel"
+const resolvers = {
+	Query: {
+		getTweet: _id => TweetModel.getTweet(_id),
 
-export const resolvers = {
-	// Query: {},
-
-	Mutation: {
-		createTweet: (_, args) => TweetModel.createTweet(args)
+		getTweets: () => TweetModel.getTweets()
 	},
 
-	DateTime: new GraphQLScalarType({
-		name: "DateTime",
-		description: "Date custom Scalar Type",
-		parseValue: () => new Date(),
-		serialize: value => value,
-		parseLiteral: ast => ast.value
-	})
+	Mutation: {
+		createTweet: (_, args) => TweetModel.createTweet(args),
+
+		deleteTweet: (_, args) => TweetModel.deleteTweet(args),
+
+		updateTweet: (_, args) => TweetModel.updateTweet(args)
+	}
 }
+
+module.exports = resolvers
